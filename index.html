@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Md Asif Rahman | Interactive Experience</title>
+  <meta name="description" content="Cinematic smooth scroll-driven interactive experience featuring Md Asif Rahman." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="asifrahman-jpg/ezgif-frame-001.jpg" type="image/jpeg" />
+</head>
+<body>
+
+  <!-- Progressive Preloader HUD -->
+  <div id="preloader" class="preloader-overlay">
+    <div class="preloader-content">
+      <div class="preloader-badge">
+        <div class="preloader-pulse"></div>
+        <span>High Definition Visual Engine</span>
+      </div>
+      <h2 class="preloader-title">Md Asif Rahman</h2>
+      <div class="preloader-bar-bg">
+        <div id="preloader-fill" class="preloader-bar-fill"></div>
+      </div>
+      <div class="preloader-status">
+        <span id="preloader-counter">0 / 240</span>
+        <span id="preloader-percent">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ambient Cinematic Atmosphere -->
+  <div class="ambient-glow"></div>
+  <div class="vignette-overlay"></div>
+
+  <!-- Interactive Canvas Viewport -->
+  <div class="canvas-viewport">
+    <canvas id="animation-canvas"></canvas>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="site-header">
+    <a href="#" class="brand-wrapper">
+      <div class="brand-dot"></div>
+      <div class="brand-name">Md Asif Rahman</div>
+      <div class="brand-role">CREATIVE TECHNOLOGIST</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#" class="nav-link" data-scroll-target="section-hero">Intro</a></li>
+      <li><a href="#" class="nav-link" data-scroll-target="section-essence">Essence</a></li>
+      <li><a href="#" class="nav-link" data-scroll-target="section-precision">Precision</a></li>
+      <li><a href="#" class="nav-link" data-scroll-target="section-connect">Connect</a></li>
+    </ul>
+    <button class="nav-cta" data-scroll-target="section-connect">Get in Touch</button>
+  </header>
+
+  <!-- Scroll Travel Container -->
+  <main class="scroll-container">
+    <div class="story-layers">
+
+      <!-- Section 0: Hero -->
+      <section id="section-hero" class="story-section section-hero active">
+        <div class="story-tag">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          Cinematic Scroll Experience
+        </div>
+        <h1 class="hero-glow-title">Md Asif Rahman</h1>
+        <p class="hero-sub">Visionary • Creative Developer • Visual Craftsman</p>
+        <div class="scroll-indicator">
+          <div class="mouse-icon">
+            <div class="mouse-wheel"></div>
+          </div>
+          <span>Scroll to Explore</span>
+        </div>
+      </section>
+
+      <!-- Section 1: Essence -->
+      <section id="section-essence" class="story-section section-left">
+        <div class="story-card">
+          <div class="story-tag">
+            <span class="brand-dot"></span>
+            01 / ESSENCE
+          </div>
+          <h2 class="story-title">Where Vision Meets Motion</h2>
+          <p class="story-desc">
+            Transforming conceptual ideas into high-fidelity, interactive digital experiences. Every frame is synchronized with user gesture for ultimate tactile depth and immersion.
+          </p>
+          <div class="tag-chips">
+            <span class="chip">✦ 60 FPS Scrollytelling</span>
+            <span class="chip">✦ Liquid Interpolation</span>
+            <span class="chip">✦ Canvas Engineering</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Precision -->
+      <section id="section-precision" class="story-section section-right">
+        <div class="story-card">
+          <div class="story-tag">
+            <span class="brand-dot"></span>
+            02 / PRECISION
+          </div>
+          <h2 class="story-title">Crafted Down to the Pixel</h2>
+          <p class="story-desc">
+            From seamless frame scrubbing to responsive HiDPI canvas rendering, combining cinematic presence with next-generation web performance.
+          </p>
+          <div class="tag-chips">
+            <span class="chip">⚡ 240 Studio Frames</span>
+            <span class="chip">⚡ Zero Frame Lag</span>
+            <span class="chip">⚡ Adaptive Aspect Ratio</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Connect -->
+      <section id="section-connect" class="story-section section-left">
+        <div class="story-card">
+          <div class="story-tag">
+            <span class="brand-dot"></span>
+            03 / COLLABORATION
+          </div>
+          <h2 class="story-title">Let's Build Something Iconic</h2>
+          <p class="story-desc">
+            Interested in pushing the boundaries of web experiences, interactive design, and creative technology? Let's connect and craft the future together.
+          </p>
+          <div class="contact-actions">
+            <button id="btn-copy-email" class="btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+              </svg>
+              Copy Email
+            </button>
+            <a href="mailto:asifrahman@example.com" class="btn-secondary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect width="20" height="16" x="2" y="4" rx="2"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+              Send Message
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Floating Luxury Control Dock -->
+  <aside class="control-dock">
+    <!-- Play/Pause Toggle -->
+    <button id="btn-play" class="dock-btn" title="Auto Play / Pause" aria-label="Auto Play">
+      <svg class="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="6 3 20 12 6 21 6 3"></polygon>
+      </svg>
+    </button>
+
+    <div class="dock-divider"></div>
+
+    <!-- Timeline Scrubber -->
+    <div class="scrub-container">
+      <input type="range" id="scrub-slider" class="scrub-slider" min="1" max="240" value="1" step="1" title="Scrub Frames" />
+      <div class="frame-counter">
+        FRAME <span id="current-frame-num">001</span>/240
+      </div>
+    </div>
+
+    <div class="dock-divider"></div>
+
+    <!-- Fit Mode Toggle -->
+    <button id="btn-fit" class="dock-btn" title="Toggle Aspect Fit Mode" aria-label="Aspect Ratio">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+      </svg>
+    </button>
+
+    <!-- Ambient Atmosphere Sound Toggle -->
+    <button id="btn-audio" class="dock-btn" title="Toggle Ambient Atmosphere Synth" aria-label="Ambient Sound">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+      </svg>
+    </button>
+
+    <!-- Fullscreen Toggle -->
+    <button id="btn-fullscreen" class="dock-btn" title="Toggle Fullscreen" aria-label="Fullscreen">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="m21 21-6-6m6 6v-4.8m0 4.8h-4.8M3 16.2V21m0 0h4.8M3 21l6-6M21 7.8V3m0 0h-4.8M21 3l-6 6M3 7.8V3m0 0h4.8M3 3l6 6"/>
+      </svg>
+    </button>
+  </aside>
+
+  <!-- Interactive Toast Feedback -->
+  <div id="toast-notice" class="toast-notice">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff334b" stroke-width="2.5">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="16" x2="12" y2="12"></line>
+      <line x1="12" y1="8" x2="12.01" y2="8"></line>
+    </svg>
+    <span id="toast-message">Notification</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
