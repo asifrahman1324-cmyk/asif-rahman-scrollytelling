@@ -3,879 +3,107 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Md Asif Rahman | Interactive Experience</title>
-  <meta name="description" content="Cinematic smooth scroll-driven interactive experience featuring Md Asif Rahman." />
+  <title>Md Asif Rahman | Business Consultant</title>
+  <meta name="description" content="Md Asif Rahman — Business Consultant helping businesses grow through strategy, marketing and digital execution." />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="asifrahman-jpg/ezgif-frame-001.jpg" type="image/jpeg" />
   <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
-
-:root {
-  --bg-color: #08080a;
-  --bg-card: rgba(18, 18, 24, 0.65);
-  --border-card: rgba(255, 255, 255, 0.08);
-  --border-card-hover: rgba(255, 80, 80, 0.3);
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.68);
-  --text-muted: rgba(255, 255, 255, 0.42);
-  --accent-color: #ff334b;
-  --accent-glow: rgba(255, 51, 75, 0.35);
-  --accent-warm: #ff7a45;
-  --glass-blur: blur(16px);
-  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  background-color: var(--bg-color);
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  scroll-behavior: auto;
-  overflow-x: hidden;
-}
-
-body {
-  min-height: 100vh;
-  position: relative;
-  background: radial-gradient(circle at 50% 35%, rgba(225, 29, 72, 0.09) 0%, rgba(8, 8, 10, 0.98) 70%);
-  user-select: none;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Scroll Container Setup */
-.scroll-container {
-  height: 550vh;
-  position: relative;
-  width: 100%;
-}
-
-/* Canvas Viewport */
-.canvas-viewport {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-#animation-canvas {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
-/* Subtle Vignette & Glow Overlay */
-.vignette-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background: radial-gradient(circle at center, transparent 40%, rgba(8, 8, 10, 0.6) 80%, rgba(8, 8, 10, 0.95) 100%);
-}
-
-/* Ambient Radial Glow */
-.ambient-glow {
-  position: fixed;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 0;
-  pointer-events: none;
-  filter: blur(80px);
-  opacity: 0.45;
-  transition: opacity 0.5s ease;
-}
-
-/* Preloader HUD */
-.preloader-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: var(--bg-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
-}
-
-.preloader-overlay.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.preloader-content {
-  text-align: center;
-  max-width: 360px;
-  width: 90%;
-}
-
-.preloader-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  color: var(--accent-color);
-  text-transform: uppercase;
-  background: rgba(255, 51, 75, 0.1);
-  padding: 6px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 51, 75, 0.25);
-  margin-bottom: 24px;
-}
-
-.preloader-pulse {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent-color);
-  animation: pulseDot 1.4s infinite ease-in-out;
-}
-
-@keyframes pulseDot {
-  0%, 100% { transform: scale(1); opacity: 0.4; }
-  50% { transform: scale(1.6); opacity: 1; }
-}
-
-.preloader-title {
-  font-family: var(--font-heading);
-  font-size: 1.75rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: 12px;
-}
-
-.preloader-bar-bg {
-  width: 100%;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 99px;
-  overflow: hidden;
-  margin: 20px 0 12px;
-  position: relative;
-}
-
-.preloader-bar-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--accent-warm), var(--accent-color));
-  box-shadow: 0 0 12px var(--accent-color);
-  transition: width 0.15s ease-out;
-}
-
-.preloader-status {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-/* Header & Navigation */
-.site-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-  padding: 20px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: linear-gradient(180deg, rgba(8, 8, 10, 0.85) 0%, rgba(8, 8, 10, 0) 100%);
-}
-
-.brand-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-}
-
-.brand-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent-color);
-  box-shadow: 0 0 10px var(--accent-color);
-}
-
-.brand-name {
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 1.15rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-primary);
-}
-
-.brand-role {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  border-left: 1px solid rgba(255, 255, 255, 0.15);
-  padding-left: 12px;
-  letter-spacing: 0.05em;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  list-style: none;
-}
-
-.nav-link {
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 0.88rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  transition: color 0.25s ease;
-  cursor: pointer;
-}
-
-.nav-link:hover {
-  color: var(--text-primary);
-}
-
-.nav-cta {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #fff;
-  padding: 8px 18px;
-  border-radius: 99px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(8px);
-}
-
-.nav-cta:hover {
-  background: var(--accent-color);
-  border-color: var(--accent-color);
-  box-shadow: 0 0 20px var(--accent-glow);
-  transform: translateY(-1px);
-}
-
-/* Floating Scrollytelling Sections */
-.story-layers {
-  position: relative;
-  z-index: 10;
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
-}
-
-.story-section {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 24px;
-  opacity: 0;
-  transform: translateY(30px) scale(0.98);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-}
-
-.story-section.active {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  pointer-events: auto;
-}
-
-/* Bottom Hero Section - Placed right above the control bar */
-.bottom-hero-section {
-  position: fixed;
-  bottom: 88px;
-  left: 50%;
-  transform: translateX(-50%) translateY(12px);
-  z-index: 50;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  pointer-events: none;
-  width: 92%;
-  max-width: 650px;
-  opacity: 0;
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.bottom-hero-section.active {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-.hero-tag-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  color: var(--accent-color);
-  text-transform: uppercase;
-  background: rgba(255, 51, 75, 0.12);
-  border: 1px solid rgba(255, 51, 75, 0.28);
-  padding: 4px 14px;
-  border-radius: 999px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  margin-bottom: 8px;
-}
-
-.tag-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent-color);
-  box-shadow: 0 0 8px var(--accent-color);
-}
-
-.hero-bottom-name {
-  font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 4vw, 2.75rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  text-transform: uppercase;
-  background: linear-gradient(180deg, #ffffff 45%, rgba(255, 255, 255, 0.72) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.9));
-  margin-bottom: 6px;
-}
-
-.hero-bottom-sub {
-  font-family: var(--font-body);
-  font-size: clamp(0.78rem, 1.4vw, 0.95rem);
-  color: rgba(255, 255, 255, 0.78);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 500;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.9));
-}
-
-/* Glassmorphic Story Card */
-.story-card {
-  max-width: 540px;
-  width: 100%;
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border-radius: 24px;
-  padding: 36px;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.3s ease;
-}
-
-.story-card:hover {
-  border-color: var(--border-card-hover);
-}
-
-.story-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  color: var(--accent-color);
-  text-transform: uppercase;
-  margin-bottom: 14px;
-}
-
-.story-title {
-  font-family: var(--font-heading);
-  font-size: 2.3rem;
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  margin-bottom: 14px;
-  background: linear-gradient(135deg, #ffffff 40%, rgba(255, 255, 255, 0.7) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.story-desc {
-  font-size: 1.02rem;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  margin-bottom: 22px;
-  font-weight: 400;
-}
-
-/* Features / Chips */
-.tag-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.chip {
-  font-size: 0.8rem;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-mono);
-}
-
-/* Left / Right Positioned Story Sections */
-.section-left {
-  justify-content: flex-start;
-  padding-left: clamp(24px, 7vw, 100px);
-}
-
-.section-right {
-  justify-content: flex-end;
-  padding-right: clamp(24px, 7vw, 100px);
-}
-
-/* Contact / Action Buttons */
-.contact-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 24px;
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: linear-gradient(135deg, var(--accent-warm), var(--accent-color));
-  color: #fff;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  cursor: pointer;
-  text-decoration: none;
-  box-shadow: 0 10px 25px var(--accent-glow);
-  transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 32px rgba(255, 51, 75, 0.5);
-}
-
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(255, 255, 255, 0.07);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 12px 22px;
-  border-radius: 12px;
-  font-weight: 500;
-  font-size: 0.92rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-}
-
-/* Bottom Floating Control Dock */
-.control-dock {
-  position: fixed;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: rgba(14, 14, 18, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 9px 20px;
-  border-radius: 999px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  max-width: 90vw;
-}
-
-.dock-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-secondary);
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  position: relative;
-}
-
-.dock-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-primary);
-  transform: scale(1.08);
-}
-
-.dock-btn.active {
-  background: var(--accent-color);
-  color: #fff;
-  box-shadow: 0 0 16px var(--accent-glow);
-}
-
-.dock-divider {
-  width: 1px;
-  height: 22px;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-/* Scrub Timeline */
-.scrub-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 220px;
-}
-
-.scrub-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 99px;
-  outline: none;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.scrub-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--accent-color);
-  box-shadow: 0 0 10px var(--accent-color);
-  cursor: pointer;
-  transition: transform 0.15s ease;
-}
-
-.scrub-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.3);
-}
-
-.frame-counter {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  white-space: nowrap;
-  letter-spacing: 0.05em;
-  min-width: 75px;
-}
-
-.frame-counter span {
-  color: var(--text-primary);
-  font-weight: 500;
-}
-
-/* Toast notification */
-.toast-notice {
-  position: fixed;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: rgba(20, 20, 26, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 10px 20px;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #fff;
-  backdrop-filter: blur(12px);
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-}
-
-.toast-notice.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* Responsive adjustments */
-@media (max-width: 860px) {
-  .site-header {
-    padding: 14px 18px;
-  }
-  .brand-role, .nav-links {
-    display: none;
-  }
-  .bottom-hero-section {
-    bottom: 80px;
-  }
-  .hero-bottom-name {
-    font-size: 1.6rem;
-  }
-  .hero-bottom-sub {
-    font-size: 0.72rem;
-    letter-spacing: 0.04em;
-  }
-  .story-card {
-    padding: 24px 20px;
-    border-radius: 18px;
-  }
-  .story-title {
-    font-size: 1.75rem;
-  }
-  .section-left, .section-right {
-    padding-left: 18px;
-    padding-right: 18px;
-    justify-content: center;
-  }
-  .scrub-container {
-    width: 120px;
-  }
-  .control-dock {
-    padding: 7px 12px;
-    gap: 8px;
-    bottom: 16px;
-  }
-}
+    .hero-bottom-subline{font-family:var(--font-body);font-size:clamp(.82rem,1.5vw,1rem);color:rgba(255,255,255,.78);line-height:1.6;max-width:720px;margin:8px auto 0;filter:drop-shadow(0 2px 8px rgba(0,0,0,.9))}
+    .social-links{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:18px;pointer-events:auto}
+    .social-link{width:40px;height:40px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.78);transition:.25s ease;backdrop-filter:blur(10px)}
+    .social-link:hover{color:#fff;background:var(--accent-color);border-color:var(--accent-color);transform:translateY(-3px);box-shadow:0 8px 22px var(--accent-glow)}
+    .social-link svg{width:18px;height:18px;fill:currentColor}
+    .hero-business-label{margin-bottom:10px}
+    .hero-business-label span{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.16em;color:var(--accent-color);text-transform:uppercase;background:rgba(255,51,75,.12);border:1px solid rgba(255,51,75,.28);padding:5px 14px;border-radius:999px;backdrop-filter:blur(12px)}
+    @media(max-width:860px){.hero-bottom-subline{font-size:.78rem;max-width:92%}.social-link{width:36px;height:36px}.social-link svg{width:16px;height:16px}}
   </style>
 </head>
-<body>
-
-  <!-- Progressive Preloader HUD -->
+<body id="top">
   <div id="preloader" class="preloader-overlay">
     <div class="preloader-content">
-      <div class="preloader-badge">
-        <div class="preloader-pulse"></div>
-        <span>High Definition Visual Engine</span>
-      </div>
+      <div class="preloader-badge"><div class="preloader-pulse"></div><span>High Definition Visual Engine</span></div>
       <h2 class="preloader-title">Md Asif Rahman</h2>
-      <div class="preloader-bar-bg">
-        <div id="preloader-fill" class="preloader-bar-fill"></div>
-      </div>
-      <div class="preloader-status">
-        <span id="preloader-counter">0 / 240</span>
-        <span id="preloader-percent">0%</span>
-      </div>
+      <div class="preloader-bar-bg"><div id="preloader-fill" class="preloader-bar-fill"></div></div>
+      <div class="preloader-status"><span id="preloader-counter">0 / 240</span><span id="preloader-percent">0%</span></div>
     </div>
   </div>
 
-  <!-- Ambient Cinematic Atmosphere -->
   <div class="ambient-glow"></div>
   <div class="vignette-overlay"></div>
+  <div class="canvas-viewport"><canvas id="animation-canvas"></canvas></div>
 
-  <!-- Interactive Canvas Viewport (100% Unobstructed Center) -->
-  <div class="canvas-viewport">
-    <canvas id="animation-canvas"></canvas>
-  </div>
-
-  <!-- Header Navigation -->
   <header class="site-header">
-    <a href="#" class="brand-wrapper">
+    <a href="#top" class="brand-wrapper">
       <div class="brand-dot"></div>
       <div class="brand-name">Md Asif Rahman</div>
-      <div class="brand-role">CREATIVE TECHNOLOGIST</div>
+      <div class="brand-role">BUSINESS CONSULTANT</div>
     </a>
     <ul class="nav-links">
       <li><a href="#" class="nav-link" data-scroll-target="section-hero">Intro</a></li>
-      <li><a href="#" class="nav-link" data-scroll-target="section-essence">Essence</a></li>
-      <li><a href="#" class="nav-link" data-scroll-target="section-precision">Precision</a></li>
-      <li><a href="#" class="nav-link" data-scroll-target="section-connect">Connect</a></li>
+      <li><a href="blog.html" class="nav-link">Blog</a></li>
+      <li><a href="projects.html" class="nav-link">Project</a></li>
+      <li><a href="pricing.html" class="nav-link">Pricing</a></li>
     </ul>
-    <button class="nav-cta" data-scroll-target="section-connect">Get in Touch</button>
+    <a class="nav-cta" href="https://wa.me/8801314399588">Get in Touch</a>
   </header>
 
-  <!-- Scroll Travel Container -->
   <main class="scroll-container">
     <div class="story-layers">
-
-      <!-- Section 0: Hero (Cleanly positioned at the bottom above the control bar) -->
       <section id="section-hero" class="bottom-hero-section active">
-        <div class="hero-tag-badge">
-          <span class="tag-dot"></span>
-          CREATIVE TECHNOLOGIST
-        </div>
+        <div class="hero-business-label"><span>BUSINESS CONSULTANT</span></div>
         <h1 class="hero-bottom-name">Md Asif Rahman</h1>
-        <p class="hero-bottom-sub">Visionary • Creative Developer • Visual Craftsman</p>
+        <p class="hero-bottom-subline">Helping businesses grow is what I do best and I can do the same for you.</p>
+        <div class="social-links" aria-label="Social media links">
+          <a class="social-link" href="#" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6h1.8V4.8c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2V11H8v3h2.5v8h3z"/></svg></a>
+          <a class="social-link" href="#" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9zm9.75 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></a>
+          <a class="social-link" href="#" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M5 3.5A2.5 2.5 0 1 1 5 8.5 2.5 2.5 0 0 1 5 3.5zM3 9h4v12H3V9zm6 0h3.8v1.7h.1c.5-1 1.8-2.1 3.8-2.1 4 0 4.7 2.6 4.7 6v6.4h-4v-5.7c0-1.4 0-3.3-2-3.3s-2.3 1.5-2.3 3.2V21H9V9z"/></svg></a>
+          <a class="social-link" href="#" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.5v-7l6.2 3.5-6.2 3.5z"/></svg></a>
+        </div>
       </section>
 
-      <!-- Section 1: Essence -->
       <section id="section-essence" class="story-section section-left">
         <div class="story-card">
-          <div class="story-tag">
-            <span class="brand-dot"></span>
-            01 / ESSENCE
-          </div>
-          <h2 class="story-title">Where Vision Meets Motion</h2>
-          <p class="story-desc">
-            Transforming conceptual ideas into high-fidelity, interactive digital experiences. Every frame is synchronized with user gesture for ultimate tactile depth and immersion.
-          </p>
-          <div class="tag-chips">
-            <span class="chip">✦ 60 FPS Scrollytelling</span>
-            <span class="chip">✦ Liquid Interpolation</span>
-            <span class="chip">✦ Canvas Engineering</span>
-          </div>
+          <div class="story-tag"><span class="brand-dot"></span>01 / ESSENCE</div>
+          <h2 class="story-title">Where Vision Meets Growth</h2>
+          <p class="story-desc">I help businesses turn ideas into practical growth systems — combining strategy, marketing, technology and execution to move from where they are to where they want to be.</p>
+          <div class="tag-chips"><span class="chip">✦ Business Strategy</span><span class="chip">✦ Marketing Growth</span><span class="chip">✦ Digital Execution</span></div>
         </div>
       </section>
 
-      <!-- Section 2: Precision -->
       <section id="section-precision" class="story-section section-right">
         <div class="story-card">
-          <div class="story-tag">
-            <span class="brand-dot"></span>
-            02 / PRECISION
-          </div>
-          <h2 class="story-title">Crafted Down to the Pixel</h2>
-          <p class="story-desc">
-            From seamless frame scrubbing to responsive HiDPI canvas rendering, combining cinematic presence with next-generation web performance.
-          </p>
-          <div class="tag-chips">
-            <span class="chip">⚡ 240 Studio Frames</span>
-            <span class="chip">⚡ Zero Frame Lag</span>
-            <span class="chip">⚡ Adaptive Aspect Ratio</span>
-          </div>
+          <div class="story-tag"><span class="brand-dot"></span>02 / PRECISION</div>
+          <h2 class="story-title">Strategy That Turns Into Action</h2>
+          <p class="story-desc">From positioning and customer acquisition to digital systems and performance marketing, I focus on clear decisions, measurable execution and sustainable growth.</p>
+          <div class="tag-chips"><span class="chip">⚡ Growth Strategy</span><span class="chip">⚡ Performance Marketing</span><span class="chip">⚡ Digital Systems</span></div>
         </div>
       </section>
 
-      <!-- Section 3: Connect -->
       <section id="section-connect" class="story-section section-left">
         <div class="story-card">
-          <div class="story-tag">
-            <span class="brand-dot"></span>
-            03 / COLLABORATION
-          </div>
-          <h2 class="story-title">Let's Build Something Iconic</h2>
-          <p class="story-desc">
-            Interested in pushing the boundaries of web experiences, interactive design, and creative technology? Let's connect and craft the future together.
-          </p>
+          <div class="story-tag"><span class="brand-dot"></span>03 / CONNECT</div>
+          <h2 class="story-title">Let's Grow Your Business</h2>
+          <p class="story-desc">Have a business, idea or growth challenge? Let's talk about what is holding you back and what we can build next.</p>
           <div class="contact-actions">
-            <button id="btn-copy-email" class="btn-primary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
-                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
-              </svg>
-              Copy Email
-            </button>
-            <a href="mailto:asifrahman@example.com" class="btn-secondary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect width="20" height="16" x="2" y="4" rx="2"/>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-              </svg>
-              Send Message
-            </a>
+            <a href="https://wa.me/8801314399588" class="btn-primary">Chat on WhatsApp</a>
+            <a href="pricing.html" class="btn-secondary">View Pricing</a>
           </div>
         </div>
       </section>
-
     </div>
   </main>
 
-  <!-- Floating Luxury Control Dock -->
   <aside class="control-dock">
-    <!-- Play/Pause Toggle -->
-    <button id="btn-play" class="dock-btn" title="Auto Play / Pause" aria-label="Auto Play">
-      <svg class="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polygon points="6 3 20 12 6 21 6 3"></polygon>
-      </svg>
-    </button>
-
+    <button id="btn-play" class="dock-btn" title="Auto Play / Pause" aria-label="Auto Play"><svg class="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg></button>
     <div class="dock-divider"></div>
-
-    <!-- Timeline Scrubber -->
-    <div class="scrub-container">
-      <input type="range" id="scrub-slider" class="scrub-slider" min="1" max="240" value="1" step="1" title="Scrub Frames" />
-      <div class="frame-counter">
-        FRAME <span id="current-frame-num">001</span>/240
-      </div>
-    </div>
-
+    <div class="scrub-container"><input type="range" id="scrub-slider" class="scrub-slider" min="1" max="240" value="1" step="1" title="Scrub Frames" /><div class="frame-counter">FRAME <span id="current-frame-num">001</span>/240</div></div>
     <div class="dock-divider"></div>
-
-    <!-- Fit Mode Toggle -->
-    <button id="btn-fit" class="dock-btn" title="Toggle Aspect Fit Mode" aria-label="Aspect Ratio">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
-      </svg>
-    </button>
-
-    <!-- Ambient Atmosphere Sound Toggle -->
-    <button id="btn-audio" class="dock-btn" title="Toggle Ambient Atmosphere Synth" aria-label="Ambient Sound">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-      </svg>
-    </button>
-
-    <!-- Fullscreen Toggle -->
-    <button id="btn-fullscreen" class="dock-btn" title="Toggle Fullscreen" aria-label="Fullscreen">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="m21 21-6-6m6 6v-4.8m0 4.8h-4.8M3 16.2V21m0 0h4.8M3 21l6-6M21 7.8V3m0 0h-4.8M21 3l-6 6M3 7.8V3m0 0h4.8M3 3l6 6"/>
-      </svg>
-    </button>
+    <button id="btn-fit" class="dock-btn" title="Toggle Aspect Fit Mode" aria-label="Aspect Ratio"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
+    <button id="btn-audio" class="dock-btn" title="Toggle Ambient Atmosphere Synth" aria-label="Ambient Sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg></button>
+    <button id="btn-fullscreen" class="dock-btn" title="Toggle Fullscreen" aria-label="Fullscreen"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21 21-6-6m6 6v-4.8m0 4.8h-4.8M3 16.2V21m0 0h4.8M3 21l6-6M21 7.8V3m0 0h-4.8M21 3l-6 6M3 7.8V3m0 0h4.8M3 3l6 6"/></svg></button>
   </aside>
 
-  <!-- Interactive Toast Feedback -->
-  <div id="toast-notice" class="toast-notice">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff334b" stroke-width="2.5">
-      <circle cx="12" cy="12" r="10"></circle>
-      <line x1="12" y1="16" x2="12" y2="12"></line>
-      <line x1="12" y1="8" x2="12.01" y2="8"></line>
-    </svg>
-    <span id="toast-message">Notification</span>
-  </div>
-
+  <div id="toast-notice" class="toast-notice"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff334b" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg><span id="toast-message">Notification</span></div>
   <script src="script.js"></script>
 </body>
 </html>
