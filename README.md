@@ -26,17 +26,13 @@ Simply open `index.html` directly in any modern web browser.
 ### Local Server
 Run with Node.js:
 ```bash
-node server.js
+node local-server.js
 ```
 Then visit `http://localhost:3000` in your browser.
 
-## 🌐 Deploy to GitHub Pages
+## 🌐 Deploy to Vercel / GitHub Pages
 
-1. Go to your repository on GitHub.
-2. Navigate to **Settings** > **Pages**.
-3. Under **Build and deployment** > **Source**, select **Deploy from a branch**.
-4. Set branch to `main` and folder to `/(root)`.
-5. Click **Save**. Your site will be live in seconds!
+This is a 100% pure static web application. It deploys out-of-the-box on **Vercel**, **Netlify**, or **GitHub Pages** with zero configuration.
 
 ---
 © 2026 Md Asif Rahman. All rights reserved.
