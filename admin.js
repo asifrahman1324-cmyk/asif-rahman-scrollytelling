@@ -1,13 +1,94 @@
 const SUPABASE_URL='https://fcuqketnfpvmjcaknasf.supabase.co';
 const SUPABASE_KEY='sb_publishable_yoWJCM6XIpzJgKFu1tQWuQ_9CfxP1hv';
-const ALLOWED_ADMIN='asifrahman1324@gmail.com';
-const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
-async function boot(){const {data:{session}}=await supabaseClient.auth.getSession();if(session?.user?.email?.toLowerCase()===ALLOWED_ADMIN){showApp();return}if(session)await supabaseClient.auth.signOut()}
-function showApp(){ $('#loginView').classList.add('hidden');$('#appView').classList.remove('hidden');loadAll() }
-$('#loginForm').addEventListener('submit',async e=>{e.preventDefault();$('#loginError').textContent='';const {error}=await supabaseClient.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#password').value});if(error){$('#loginError').textContent=error.message;return}const {data:{user}}=await supabaseClient.auth.getUser();if(user?.email?.toLowerCase()!==ALLOWED_ADMIN){await supabaseClient.auth.signOut();$('#loginError').textContent='This account is not authorized.';return}showApp()});
-supabaseClient.auth.onAuthStateChange((_event,session)=>{if(!session)location.reload()});
-$('#logout').addEventListener('click',async()=>{await supabaseClient.auth.signOut()});
+const ADMIN_EMAIL='asifrahman1324@gmail.com';
+
+const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{
+  auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}
+});
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
+
+function isAdmin(user){
+  return !!user && user.email?.trim().toLowerCase()===ADMIN_EMAIL;
+}
+
+async function boot(){
+  const {data:{session},error}=await supabaseClient.auth.getSession();
+  if(error){
+    console.error('Session check failed:',error);
+    return showLogin();
+  }
+  if(isAdmin(session?.user)) return showApp();
+  if(session) await supabaseClient.auth.signOut({scope:'local'});
+  showLogin();
+}
+
+function showLogin(){
+  $('#loginView').classList.remove('hidden');
+  $('#appView').classList.add('hidden');
+}
+
+function showApp(){
+  $('#loginView').classList.add('hidden');
+  $('#appView').classList.remove('hidden');
+  loadAll();
+}
+
+$('#loginForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const errorEl=$('#loginError');
+  const button=e.submitter||$('#loginForm button[type="submit"]');
+  errorEl.textContent='';
+  button.disabled=true;
+  button.textContent='Signing in...';
+
+  try{
+    const email=$('#email').value.trim().toLowerCase();
+    const password=$('#password').value;
+
+    if(email!==ADMIN_EMAIL){
+      errorEl.textContent='This account is not authorized.';
+      return;
+    }
+
+    const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
+    if(error){
+      console.error('Supabase sign-in failed:',error);
+      errorEl.textContent='Invalid email or password.';
+      return;
+    }
+
+    if(!isAdmin(data.user)){
+      await supabaseClient.auth.signOut({scope:'local'});
+      errorEl.textContent='This account is not authorized.';
+      return;
+    }
+
+    showApp();
+  }catch(err){
+    console.error('Login error:',err);
+    errorEl.textContent='Unable to sign in. Please try again.';
+  }finally{
+    button.disabled=false;
+    button.textContent='Sign in';
+  }
+});
+
+supabaseClient.auth.onAuthStateChange((_event,session)=>{
+  if(session?.user){
+    if(isAdmin(session.user)) showApp();
+    else supabaseClient.auth.signOut({scope:'local'});
+  }else{
+    showLogin();
+  }
+});
+
+$('#logout').addEventListener('click',async()=>{
+  await supabaseClient.auth.signOut({scope:'local'});
+  showLogin();
+});
+
 document.querySelectorAll('.side-link').forEach(b=>b.addEventListener('click',()=>showSection(b.dataset.section)));
 function showSection(id){document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.side-link').forEach(b=>b.classList.toggle('active',b.dataset.section===id));$('#pageTitle').textContent={dashboard:'Dashboard',service:'Service',orders:'Order',intro:'Intro',blog:'Blog',project:'Project'}[id]}
 async function loadAll(){await Promise.all([loadServices(),loadOrders(),loadIntro(),loadBlogs(),loadProjects()])}
@@ -26,4 +107,5 @@ async function editProject(id){const {data}=await supabaseClient.from('projects'
 $('#addProject').addEventListener('click',async()=>{const title=prompt('Project title');if(!title)return;const description=prompt('Description')||'';const content=prompt('Project details')||'';await supabaseClient.from('projects').insert({title,description,content,published:false});loadProjects()});
 async function togglePublish(table,id,value){await supabaseClient.from(table).update({published:!value}).eq('id',id);table==='blog_posts'?loadBlogs():loadProjects()}
 async function deleteRow(table,id){if(!confirm('Delete this item?'))return;await supabaseClient.from(table).delete().eq('id',id);if(table==='services')loadServices();if(table==='blog_posts')loadBlogs();if(table==='projects')loadProjects()}
+
 boot();
